@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.userservice.constants.ErrorMessages;
 import com.example.userservice.domain.AppUser;
+import com.example.userservice.exception.DuplicateEmailException;
 import com.example.userservice.infrastructure.AppUserRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class AppUserService {
 	}
 
 	public AppUser createUser(AppUser appUser) {
+		if (appUserRepository.findByEmail(appUser.getEmail()).isPresent()) {
+			throw new DuplicateEmailException(ErrorMessages.EMAIL_EXISTS+  appUser.getEmail());
+		}
 		return appUserRepository.save(appUser);
 	}
 

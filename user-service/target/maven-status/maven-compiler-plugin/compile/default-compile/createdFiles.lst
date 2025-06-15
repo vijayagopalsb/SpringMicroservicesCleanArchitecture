@@ -1,0 +1,11 @@
+com\example\userservice\constants\ErrorMessages.class
+com\example\userservice\domain\AppUser.class
+com\example\userservice\constants\AppConstants.class
+com\example\userservice\api\dto\AppUserDTO.class
+com\example\userservice\OrderServiceApplication.class
+com\example\userservice\api\AppUserController.class
+com\example\userservice\api\exception\GlobalExceptionHandler.class
+com\example\userservice\constants\ApiPaths.class
+com\example\userservice\infrastructure\AppUserRepository.class
+com\example\userservice\application\AppUserService.class
+com\example\userservice\exception\DuplicateEmailException.class

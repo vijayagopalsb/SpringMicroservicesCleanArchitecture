@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.userservice.api.dto.AppUserDTO;
 import com.example.userservice.application.AppUserService;
 import com.example.userservice.domain.AppUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.userservice.constants.ApiPaths;
+
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(ApiPaths.USERS)
 public class AppUserController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppUserController.class);
@@ -28,21 +31,39 @@ public class AppUserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
-		
-		LOGGER.info("Received AppUser: {}", appUser);
+	public ResponseEntity<AppUserDTO> createUser(@RequestBody AppUserDTO appUserDTO) {
+		LOGGER.info("User creation started...");
+		AppUser appUser = toEntity(appUserDTO);
 		AppUser newUser = appUserService.createUser(appUser);
-		return ResponseEntity.ok(newUser);
+		LOGGER.info("User created successfully");
+		return ResponseEntity.ok(toDTO(newUser));
 	}
 
-	@GetMapping("{id}")
-	public ResponseEntity<AppUser> getUser(@PathVariable Long id) {
-		return appUserService.getUser(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+	@GetMapping(ApiPaths.USER_BY_ID)
+	public ResponseEntity<AppUserDTO> getUser(@PathVariable Long id) {
+		return appUserService.getUser(id).map(user -> ResponseEntity.ok(toDTO(user)))
+				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@GetMapping
-	public List<AppUser> getAllUsers() {
-		return appUserService.getAllUsers();
+	public List<AppUserDTO> getAllUsers() {
+		return appUserService.getAllUsers().stream().map(this::toDTO).toList();
+	}
+
+	private AppUser toEntity(AppUserDTO appUserDTO) {
+		AppUser appUser = new AppUser();
+		appUser.setId(appUserDTO.getId());
+		appUser.setName(appUserDTO.getName());
+		appUser.setEmail(appUserDTO.getEmail());
+		return appUser;
+	}
+
+	private AppUserDTO toDTO(AppUser appUser) {
+		AppUserDTO dto = new AppUserDTO();
+		dto.setId(appUser.getId());
+		dto.setName(appUser.getName());
+		dto.setEmail(appUser.getEmail());
+		return dto;
 	}
 
 }
