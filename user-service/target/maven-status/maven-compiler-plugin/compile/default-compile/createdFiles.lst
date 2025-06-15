@@ -1,8 +1,9 @@
 com\example\userservice\constants\ErrorMessages.class
+com\example\userservice\exception\UserNotFoundException.class
 com\example\userservice\domain\AppUser.class
 com\example\userservice\constants\AppConstants.class
 com\example\userservice\api\dto\AppUserDTO.class
-com\example\userservice\OrderServiceApplication.class
+com\example\userservice\UserServiceApplication.class
 com\example\userservice\api\AppUserController.class
 com\example\userservice\api\exception\GlobalExceptionHandler.class
 com\example\userservice\constants\ApiPaths.class

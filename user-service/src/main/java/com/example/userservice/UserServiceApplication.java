@@ -5,13 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SpringBootApplication
-public class OrderServiceApplication {
+public class UserServiceApplication {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceApplication.class);
     public static void main(String[] args) {
     	
     	LOGGER.info("Starting Order Service...");
-        SpringApplication.run(OrderServiceApplication.class, args);
+        SpringApplication.run(UserServiceApplication.class, args);
         LOGGER.info("Order Service Started Successfully");
         
     }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +49,14 @@ public class AppUserController {
 	@GetMapping
 	public List<AppUserDTO> getAllUsers() {
 		return appUserService.getAllUsers().stream().map(this::toDTO).toList();
+	}
+	
+	@PutMapping(ApiPaths.USER_BY_ID)
+	public ResponseEntity<AppUserDTO> updateUser(@PathVariable Long id, @RequestBody AppUserDTO  appUserDTO){
+		AppUser userEntity = toEntity(appUserDTO);
+		AppUser updated = appUserService.updateUser(id,  userEntity);
+		return ResponseEntity.ok(toDTO(updated));
+		
 	}
 
 	private AppUser toEntity(AppUserDTO appUserDTO) {
