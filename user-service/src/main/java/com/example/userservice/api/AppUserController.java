@@ -1,14 +1,21 @@
 package com.example.userservice.api;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.HttpMethod;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.userservice.api.dto.AppUserDTO;
@@ -42,6 +49,7 @@ public class AppUserController {
 
 	@GetMapping(ApiPaths.USER_BY_ID)
 	public ResponseEntity<AppUserDTO> getUser(@PathVariable Long id) {
+		LOGGER.info("User creation started...");
 		return appUserService.getUser(id).map(user -> ResponseEntity.ok(toDTO(user)))
 				.orElse(ResponseEntity.notFound().build());
 	}
@@ -50,13 +58,45 @@ public class AppUserController {
 	public List<AppUserDTO> getAllUsers() {
 		return appUserService.getAllUsers().stream().map(this::toDTO).toList();
 	}
-	
+
 	@PutMapping(ApiPaths.USER_BY_ID)
-	public ResponseEntity<AppUserDTO> updateUser(@PathVariable Long id, @RequestBody AppUserDTO  appUserDTO){
+	public ResponseEntity<AppUserDTO> updateUser(@PathVariable Long id, @RequestBody AppUserDTO appUserDTO) {
 		AppUser userEntity = toEntity(appUserDTO);
-		AppUser updated = appUserService.updateUser(id,  userEntity);
+		AppUser updated = appUserService.updateUser(id, userEntity);
 		return ResponseEntity.ok(toDTO(updated));
+
+	}
+
+	@DeleteMapping(ApiPaths.USER_BY_ID)
+	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+		appUserService.deleteUser(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	// PATCH: Modifies only the fields sent in the request.
+	@PatchMapping(ApiPaths.USER_BY_ID)
+	public ResponseEntity<AppUserDTO> patchUser(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+		LOGGER.info("Patch update starting...");
+		AppUser updateAppUser = appUserService.patchUser(id, updates);
+		LOGGER.info("Patch update completed successfully.");
+		return ResponseEntity.ok(toDTO(updateAppUser));
+	}
+
+	@RequestMapping(value = ApiPaths.USERS, method = RequestMethod.OPTIONS)
+	public ResponseEntity<Map<String, Object>> userOptions() {
+		Map<String, Object> body = new HashMap<>();
+		body.put("allowedMethods", List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+		body.put("description","This endpoint supports all CRUD operations for users.");
 		
+		return ResponseEntity.ok()
+	            .allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH, HttpMethod.DELETE, HttpMethod.OPTIONS)
+	            .body(body);
+	}
+
+	@RequestMapping(value = ApiPaths.USER_BY_ID, method = RequestMethod.HEAD)
+	public ResponseEntity<Void> headUser(@PathVariable Long id) {
+		boolean exists = appUserService.getUser(id).isPresent();
+		return exists ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
 	}
 
 	private AppUser toEntity(AppUserDTO appUserDTO) {

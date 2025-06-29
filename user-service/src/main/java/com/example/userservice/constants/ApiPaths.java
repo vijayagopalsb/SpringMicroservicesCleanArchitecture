@@ -9,7 +9,7 @@ public final class ApiPaths {
 
     // User API paths
     public static final String USERS = "/api/users";
-    public static final String USER_BY_ID = "/api/users/{id}";
+    public static final String USER_BY_ID = "/{id}";
 
     // Add more API paths here as your project grows
 }

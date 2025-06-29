@@ -1,6 +1,7 @@
 package com.example.userservice.application;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class AppUserService {
 	public AppUser updateUser(Long id, AppUser updatedUser) {
 
 		AppUser existing = appUserRepository.findById(id)
-				.orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+				.orElseThrow(() -> new UserNotFoundException(ErrorMessages.USER_NOT_FOUND_ERROR + id));
 
 		// Update existing user
 		existing.setName(updatedUser.getName());
@@ -46,6 +47,27 @@ public class AppUserService {
 
 		return appUserRepository.save(existing);
 
+	}
+
+	public void deleteUser(Long id) {
+		AppUser appUser = appUserRepository.findById(id)
+				.orElseThrow(() -> new UserNotFoundException(ErrorMessages.USER_NOT_FOUND_ERROR + id));
+		appUserRepository.delete(appUser);
+	}
+	
+	public AppUser patchUser(Long id, Map<String, Object> updates) {
+		AppUser appUser = appUserRepository.findById(id)
+				.orElseThrow(() ->new  UserNotFoundException(ErrorMessages.USER_NOT_FOUND_ERROR + id));
+		
+		if (updates.containsKey("name")) {
+			appUser.setName((String) updates.get("name"));
+		}
+		if (updates.containsKey("email")) {
+			appUser.setEmail((String) updates.get("email"));
+		}
+		
+		// Add other fields if necessary
+		return appUserRepository.save(appUser);
 	}
 
 }

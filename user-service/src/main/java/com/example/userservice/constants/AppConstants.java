@@ -1,6 +1,6 @@
 package com.example.userservice.constants;
 
-public class AppConstants {
+public final class AppConstants {
 	
 	
 	public static final int MAX_NAME_LENGTH = 50;
