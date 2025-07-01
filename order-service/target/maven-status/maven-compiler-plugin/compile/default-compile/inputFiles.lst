@@ -1,1 +1,10 @@
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\api\dto\OrderRequest.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\api\dto\OrderResponse.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\infrastructure\repository\OrderJpaRepository.java
 D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\OrderServiceApplication.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\api\OrderController.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\domain\port\OrderRepository.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\infrastructure\entity\OrderEntity.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\infrastructure\adapter\OrderRepositoryImpl.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\application\service\OrderService.java
+D:\my_github_java_projects\SpringMicroservicesCleanArchitecture\order-service\src\main\java\com\example\orderservice\domain\model\Order.java

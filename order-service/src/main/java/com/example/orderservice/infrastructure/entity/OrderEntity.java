@@ -9,7 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-@SuppressWarnings("unused")
 @Entity
 @Table(name = "orders")
 @Getter

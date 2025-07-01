@@ -1,1 +1,11 @@
 com\example\orderservice\OrderServiceApplication.class
+com\example\orderservice\infrastructure\adapter\OrderRepositoryImpl.class
+com\example\orderservice\api\dto\OrderRequest.class
+com\example\orderservice\api\dto\OrderResponse.class
+com\example\orderservice\application\service\OrderService.class
+com\example\orderservice\domain\model\Order.class
+com\example\orderservice\domain\port\OrderRepository.class
+com\example\orderservice\api\OrderController.class
+com\example\orderservice\infrastructure\repository\OrderJpaRepository.class
+com\example\orderservice\infrastructure\entity\OrderEntity.class
+com\example\orderservice\api\dto\OrderRequest$OrderRequestBuilder.class

@@ -2,12 +2,17 @@ package com.example.orderservice.application.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.orderservice.domain.model.Order;
 import com.example.orderservice.domain.port.OrderRepository;
 
+@Service
 public class OrderService {
 
 	private final OrderRepository orderRepository;
+	
+
 
 	public OrderService(OrderRepository orderRepository) {
 		this.orderRepository = orderRepository;
@@ -24,5 +29,7 @@ public class OrderService {
 	public List<Order> listOrders() {
 		return orderRepository.findAll();
 	}
+	
+	
 
 }

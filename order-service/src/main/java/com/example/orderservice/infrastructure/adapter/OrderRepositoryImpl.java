@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Repository;
+
 import com.example.orderservice.domain.model.Order;
 import com.example.orderservice.domain.port.OrderRepository;
 import com.example.orderservice.infrastructure.entity.OrderEntity;
 import com.example.orderservice.infrastructure.repository.OrderJpaRepository;
 
+@Repository
 public class OrderRepositoryImpl implements OrderRepository {
 
 	private final OrderJpaRepository orderJpaRepository;
